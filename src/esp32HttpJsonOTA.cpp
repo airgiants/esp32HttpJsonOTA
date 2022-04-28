@@ -132,7 +132,7 @@ String get = "";
     }
 
     // Check what is the contentLength and if content type is `application/octet-stream`
-    ESP_LOGD(OTATAG, "contentLength : %s , isValidContentType : %s", String(contentLength),String(isValidContentType));
+    //ESP_LOGD(OTATAG, "contentLength : %s , isValidContentType : %s", String(contentLength),String(isValidContentType));
 
     // Check contentLength and content type
     if (contentLength && isValidContentType)
@@ -145,18 +145,18 @@ String get = "";
         // If yes, begin
         if (canBegin)
         {
-            ESP_LOGI("Begin OTA. This may take 2 - 5 mins to complete. Things might be quite for a while.. Patience!");
+          //  ESP_LOGV("Begin OTA. This may take 2 - 5 mins to complete. Things might be quite for a while.. Patience!");
             // No activity would appear on the Serial monitor
             // So be patient. This may take 2 - 5mins to complete
             size_t written = Update.writeStream(client);
 
             if (written == contentLength)
             {
-                ESP_LOGI(OTATAG, "Written : %s successfully", String(written).c_str);
+              //  ESP_LOGV(OTATAG, "Written : %s successfully", String(written).c_str);
             }
             else
             {
-                ESP_LOGE(OTATAG, "Written only : %s/%s retry !", String(written).c_str, String(contentLength).c_str);
+                //ESP_LOGE(OTATAG, "Written only : %s/%s retry !", String(written).c_str, String(contentLength).c_str);
             }
 
             if (Update.end())
@@ -174,7 +174,7 @@ String get = "";
             }
             else
             {
-                ESP_LOGE(OTATAG, "Error Occurred. Error #: %s", String(Update.getError()).c_str);
+                ESP_LOGE(OTATAG, "Error Occurred. Error #: %i", Update.getError());
             }
         }
         else
