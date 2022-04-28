@@ -152,11 +152,11 @@ String get = "";
 
             if (written == contentLength)
             {
-                ESP_LOGI(OTATAG, "Written : %s successfully", String(written));
+                ESP_LOGI(OTATAG, "Written : %s successfully", String(written).c_str);
             }
             else
             {
-                ESP_LOGE(OTATAG, "Written only : %s/%s retry !", String(written), String(contentLength));
+                ESP_LOGE(OTATAG, "Written only : %s/%s retry !", String(written).c_str, String(contentLength).c_str);
             }
 
             if (Update.end())
@@ -174,7 +174,7 @@ String get = "";
             }
             else
             {
-                ESP_LOGE(OTATAG, "Error Occurred. Error #: %s", String(Update.getError()));
+                ESP_LOGE(OTATAG, "Error Occurred. Error #: %s", String(Update.getError()).c_str);
             }
         }
         else
