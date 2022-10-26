@@ -21,6 +21,8 @@
 #include <ArduinoJson.h>
 
 #include "esp32HttpJsonOTA.h"
+#include "memfault/core/build_info.h"
+
 
 esp32HttpJsonOTA::esp32HttpJsonOTA(String firmwareName, String firmwareType, int firmwareVersion, String urlJson)
 {
@@ -206,7 +208,7 @@ bool esp32HttpJsonOTA::execHTTPcheck()
         useURL = _checkURL;
     }
 
-    _cnf.port = 80;
+    _cnf.port = 9000;
 
     ESP_LOGD(OTATAG, "Getting HTTP : %s", useURL.c_str());
 
@@ -215,9 +217,17 @@ bool esp32HttpJsonOTA::execHTTPcheck()
         //Check the current connection status
 
         HTTPClient http;
+        char buf[10];
+        memfault_build_id_get_string(buf, 7);
+        
 
         http.begin(useURL);        // Specify the URL
+        http.addHeader("mac", WiFi.macAddress());
+        http.addHeader("FW-VER","23");
+      
+
         int httpCode = http.GET(); // Make the request
+
         
         // Check if the file is receveid
         if (httpCode == 200)
@@ -282,7 +292,7 @@ String esp32HttpJsonOTA::getDeviceID()
     uint64_t chipid;
     chipid = ESP.getEfuseMac();
     sprintf(deviceid, "%" PRIu64, chipid);
-    String thisID(deviceid);
+    String thisID( WiFi.macAddress());
     return thisID;
 }
 

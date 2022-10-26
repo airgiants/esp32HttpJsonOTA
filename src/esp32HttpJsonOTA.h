@@ -27,7 +27,7 @@ struct otaConfig {
   char host[50]; // hostname or ip of firmware serveur without HTTP and subdir just the hostname like update.server.com
   char bin[60]; // the path of bin file start with / like /ver1/firmware.bin
   char type[9]; // the type of firmware FIRMWARE or SPIFFS
-  int port = 80; // the port of the server
+  int port = 9000; // the port of the server
 };
 
 class esp32HttpJsonOTA
