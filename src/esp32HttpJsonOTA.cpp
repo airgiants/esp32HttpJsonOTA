@@ -223,7 +223,7 @@ bool esp32HttpJsonOTA::execHTTPcheck()
 
         http.begin(useURL);        // Specify the URL
         http.addHeader("mac", WiFi.macAddress());
-        http.addHeader("FW-VER","23");
+        http.addHeader("FW-VER",String(buf));
       
 
         int httpCode = http.GET(); // Make the request
@@ -262,7 +262,7 @@ bool esp32HttpJsonOTA::execHTTPcheck()
             ESP_LOGD(OTATAG, "port : %d", _cnf.port);
             ESP_LOGD(OTATAG, "bin : %s", _cnf.bin);
 
-            if (jsVer > _firmwareVersion && jsName == _firmwareName)
+            if (jsName == _firmwareName)
             {
                 http.end(); //Free the resources
                 return true; // Update available
